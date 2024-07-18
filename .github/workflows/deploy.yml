@@ -29,11 +29,13 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan 31.128.37.35 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 31.128.37.35 >> ~/.ssh/known_hosts
 
       - name: Copy files via SCP
         run: |
           scp -o StrictHostKeyChecking=no -r target/coze-microservice-0.0.1-SNAPSHOT.jar root@31.128.37.35:/var/iiservice
 
       - name: Restart application
-        run: ssh -o StrictHostKeyChecking=no root@31.128.37.35 'pkill -f "java -jar" || true && cd /var/iiservice && nohup java -jar coze-microservice-0.0.1-SNAPSHOT.jar --server.port=8080 > /dev/null 2>&1 &'
+        env:
+          SERVER_PORT: 8080
+        run: ssh -o StrictHostKeyChecking=no root@31.128.37.35 'pkill -f "java -jar" || true && cd /var/iiservice && nohup java -jar coze-microservice-0.0.1-SNAPSHOT.jar --server.port=$SERVER_PORT > /dev/null 2>&1 &'
