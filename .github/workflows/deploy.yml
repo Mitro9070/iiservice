@@ -30,6 +30,8 @@ jobs:
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 31.128.37.35 >> ~/.ssh/known_hosts
+          ls -la ~/.ssh
+          cat ~/.ssh/id_ed25519
 
       - name: Copy files via SCP
         run: |
