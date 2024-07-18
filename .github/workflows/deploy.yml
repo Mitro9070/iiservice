@@ -33,6 +33,9 @@ jobs:
           ls -la ~/.ssh
           ls -la ~/.ssh/id_rsa
           head -n 5 ~/.ssh/id_rsa || true
+          echo "$SSH_PRIVATE_KEY" > temp_key.txt
+          ls -la temp_key.txt
+          head -n 5 temp_key.txt || true
 
       - name: Copy files via SCP
         run: |
