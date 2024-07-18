@@ -34,6 +34,7 @@ jobs:
           ssh-keyscan -H 31.128.37.35 >> ~/.ssh/known_hosts
           ls -la ~/.ssh
           cat ~/.ssh/id_rsa || true
+          ls -la ~/.ssh/id_rsa
 
       - name: Copy files via SCP
         run: |
