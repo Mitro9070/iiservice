@@ -35,6 +35,4 @@ jobs:
           scp -o StrictHostKeyChecking=no target/coze-microservice-0.0.1-SNAPSHOT.jar root@31.128.37.35:/var/iiservice
 
       - name: Restart application
-        env:
-          SERVER_PORT: 8080
         run: ssh -o StrictHostKeyChecking=no root@31.128.37.35 'pkill -f "java -jar" || true && cd /var/iiservice && nohup java -jar coze-microservice-0.0.1-SNAPSHOT.jar --server.port=$SERVER_PORT > /dev/null 2>&1 &'
